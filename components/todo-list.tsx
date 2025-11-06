@@ -25,6 +25,10 @@ export function TodoList() {
     );
   };
 
+  const handleDeleteTodo = (id: string) => {
+    setTodos(todos.filter((todo) => todo.id !== id));
+  };
+
   return (
     <Card className="w-full max-w-2xl min-w-[500px]">
       <CardHeader>
@@ -39,7 +43,12 @@ export function TodoList() {
             </p>
           ) : (
             todos.map((todo) => (
-              <TodoItem key={todo.id} todo={todo} onToggle={handleToggleTodo} />
+              <TodoItem
+                key={todo.id}
+                todo={todo}
+                onToggle={handleToggleTodo}
+                onDelete={handleDeleteTodo}
+              />
             ))
           )}
         </div>
