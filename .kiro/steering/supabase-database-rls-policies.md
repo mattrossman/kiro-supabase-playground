@@ -1,5 +1,5 @@
 ---
-inclusion: manual
+inclusion: always
 ---
 
 # Database: Create RLS policies

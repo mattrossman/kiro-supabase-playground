@@ -1,5 +1,5 @@
 ---
-inclusion: manual
+inclusion: always
 ---
 
 # Bootstrap Next.js app with Supabase Auth
