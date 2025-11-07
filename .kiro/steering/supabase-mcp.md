@@ -43,12 +43,13 @@ The hosted server supports additional tools (e.g. to interact with edge function
 ### Schema managament
 
 During development, you can iterate on the database schema with `execute_sql`.
-As you do, use `get_advisors` to correct and security/performance concerns.
 
-Once the user is satisfied, commit changes to a local migration file. Only do this once the user has had a turn to verify functionality of changes.
-```
-supabase db pull [migration name] --local
-```
+Eventually the user should commit their changes to a local migration file.
+Only do this once the user has had a turn to verify functionality of changes
+1. Do a final `get_advisors` check to ensure the current schema doesn't have security/performance concerns.
+2. If the changes are unknown, use `supabase db diff --local` to inspect schema changes
+3. Instruct the user that when prompted, they should update the remote migration history table with "Y"
+4. Use `supabase db pull [migration name] --local` to generate a migration file
 
 ## Supabase Client
 
