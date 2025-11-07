@@ -3,8 +3,25 @@ import { AuthButton } from "@/components/auth-button";
 import { ThemeSwitcher } from "@/components/theme-switcher";
 import { TodoList } from "@/components/todo-list";
 import { hasEnvVars } from "@/lib/utils";
+import { createClient } from "@/lib/supabase/server";
+import type { Tables } from "@/lib/supabase/database.types";
 
-export default function Home() {
+type TodoRow = Tables<"todos">;
+
+export default async function Home() {
+  const supabase = await createClient();
+  const { data } = await supabase.auth.getClaims();
+  const userId = data?.claims?.sub;
+
+  let todos: TodoRow[] = [];
+  if (userId) {
+    const { data: todosData } = await supabase
+      .from("todos")
+      .select("*")
+      .order("created_at", { ascending: false });
+    todos = todosData || [];
+  }
+
   return (
     <main className="min-h-screen flex flex-col items-center">
       <div className="flex-1 w-full flex flex-col gap-20 items-center">
@@ -18,7 +35,7 @@ export default function Home() {
         </nav>
         <div className="flex-1 flex flex-col gap-20 max-w-5xl p-5">
           <main className="flex-1 flex flex-col gap-6 px-4">
-            <TodoList />
+            <TodoList initialTodos={todos} userId={userId} />
           </main>
         </div>
 

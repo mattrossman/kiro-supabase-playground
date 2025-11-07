@@ -47,7 +47,7 @@ As you do, use `get_advisors` to correct and security/performance concerns.
 
 Once the user is satisfied, commit changes to a local migration file. Only do this once the user has had a turn to verify functionality of changes.
 ```
-supabase db pull --local
+supabase db pull [migration name] --local
 ```
 
 ## Supabase Client
