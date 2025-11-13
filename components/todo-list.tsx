@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { TodoItem, Todo } from "@/components/todo-item";
 import { TodoForm } from "@/components/todo-form";
@@ -26,6 +27,7 @@ function mapTodoFromDb(todo: TodoRow): Todo {
 export function TodoList({ initialTodos, userId }: TodoListProps) {
   const [todos, setTodos] = useState<Todo[]>(initialTodos.map(mapTodoFromDb));
   const supabase = createClient();
+  const router = useRouter();
 
   const handleAddTodo = async (text: string, priority: "low" | "medium" | "high") => {
     if (!userId) return;
@@ -40,6 +42,7 @@ export function TodoList({ initialTodos, userId }: TodoListProps) {
       console.error("Error adding todo:", error);
     } else {
       setTodos([mapTodoFromDb(data), ...todos]);
+      router.refresh();
     }
   };
 
@@ -56,6 +59,7 @@ export function TodoList({ initialTodos, userId }: TodoListProps) {
       console.error("Error updating todo:", error);
     } else {
       setTodos(todos.map((t) => (t.id === id ? { ...t, completed: !t.completed } : t)));
+      router.refresh();
     }
   };
 
@@ -66,6 +70,7 @@ export function TodoList({ initialTodos, userId }: TodoListProps) {
       console.error("Error deleting todo:", error);
     } else {
       setTodos(todos.filter((todo) => todo.id !== id));
+      router.refresh();
     }
   };
 
@@ -79,6 +84,7 @@ export function TodoList({ initialTodos, userId }: TodoListProps) {
       console.error("Error updating priority:", error);
     } else {
       setTodos(todos.map((t) => (t.id === id ? { ...t, priority } : t)));
+      router.refresh();
     }
   };
 
