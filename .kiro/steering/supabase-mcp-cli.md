@@ -29,8 +29,10 @@ Steps:
 4. Instruct the user that when prompted, they should update the remote migration history table with "Y"
 5. Use `supabase db pull [migration name] --local` to generate a migration file
 
+To compare the local `migrations/` files with those applied to the local running database (listed as "Remote" in the output) you can use `supabase migration list --local`.
+
 # Type generation
 
-While iterating on the schema, you should generate updated types with `supabase gen types`. This outputs to stdio, so use `>` to redirect to a file.
+While iterating on the schema, you should generate updated types with `supabase gen types --local`. This outputs to stdio, so use `>` to redirect to a file.
 
 Prefer this over the `generate_types` MCP tool.
