@@ -19,7 +19,7 @@ export default async function Home() {
     const { data: todosData } = await supabase
       .from("todos")
       .select("*")
-      .order("created_at", { ascending: false });
+      .order("position", { ascending: true });
     todos = todosData || [];
   }
 

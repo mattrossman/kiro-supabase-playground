@@ -9,14 +9,17 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Trash2 } from "lucide-react";
+import { Trash2, GripVertical } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useSortable } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
 
 export interface Todo {
   id: string;
   text: string;
   completed: boolean;
   priority: "low" | "medium" | "high";
+  position: number;
 }
 
 interface TodoItemProps {
@@ -33,8 +36,36 @@ const priorityConfig = {
 };
 
 export function TodoItem({ todo, onToggle, onDelete, onPriorityChange }: TodoItemProps) {
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({ id: todo.id });
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+  };
+
   return (
-    <div className="flex items-center gap-3 py-2 group">
+    <div
+      ref={setNodeRef}
+      style={style}
+      className={cn(
+        "flex items-center gap-3 py-2 group",
+        isDragging && "opacity-50"
+      )}
+    >
+      <button
+        className="cursor-grab active:cursor-grabbing touch-none opacity-0 group-hover:opacity-100 transition-opacity"
+        {...attributes}
+        {...listeners}
+      >
+        <GripVertical className="h-4 w-4 text-muted-foreground" />
+      </button>
       <Checkbox
         checked={todo.completed}
         onCheckedChange={() => onToggle(todo.id)}
