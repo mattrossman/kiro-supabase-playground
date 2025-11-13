@@ -26,4 +26,6 @@ Although you're working in a local editor, prefer development using this hosted 
 
 During development, you can iterate on the database schema with `apply_migration`. You can sync this migration history to the local `supabase/` folder with `supabase migration fetch`.
 
+# Type generation
 
+While iterating on the schema, you can generate updated types with the `generate_types` MCP tool and write the result to a file.

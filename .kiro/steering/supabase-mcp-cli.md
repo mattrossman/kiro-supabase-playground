@@ -28,3 +28,9 @@ Steps:
 3. Use `supabase db diff --local` to inspect schema changes to inform the migration name
 4. Instruct the user that when prompted, they should update the remote migration history table with "Y"
 5. Use `supabase db pull [migration name] --local` to generate a migration file
+
+# Type generation
+
+While iterating on the schema, you should generate updated types with `supabase gen types`. This outputs to stdio, so use `>` to redirect to a file.
+
+Prefer this over the `generate_types` MCP tool.
