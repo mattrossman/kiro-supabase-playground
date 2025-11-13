@@ -20,7 +20,7 @@ Depending on which options the user has configured, tool behavior may vary. Refe
 
 Tools executing using this server affect the hosted Supabase project(s), and changes can be synced to the filesystem using Supabase CLI.
 
-Although you're working in a local editor, prefer development using this local Supabase instance.
+Although you're working in a local editor, prefer development using this hosted Supabase instance.
 
 # Schema managament
 

@@ -19,6 +19,7 @@ function mapTodoFromDb(todo: TodoRow): Todo {
     id: todo.id,
     text: todo.title,
     completed: todo.completed || false,
+    priority: (todo.priority as "low" | "medium" | "high") || "low",
   };
 }
 
@@ -26,12 +27,12 @@ export function TodoList({ initialTodos, userId }: TodoListProps) {
   const [todos, setTodos] = useState<Todo[]>(initialTodos.map(mapTodoFromDb));
   const supabase = createClient();
 
-  const handleAddTodo = async (text: string) => {
+  const handleAddTodo = async (text: string, priority: "low" | "medium" | "high") => {
     if (!userId) return;
 
     const { data, error } = await supabase
       .from("todos")
-      .insert({ title: text, user_id: userId })
+      .insert({ title: text, user_id: userId, priority })
       .select()
       .single();
 
@@ -65,6 +66,19 @@ export function TodoList({ initialTodos, userId }: TodoListProps) {
       console.error("Error deleting todo:", error);
     } else {
       setTodos(todos.filter((todo) => todo.id !== id));
+    }
+  };
+
+  const handlePriorityChange = async (id: string, priority: "low" | "medium" | "high") => {
+    const { error } = await supabase
+      .from("todos")
+      .update({ priority })
+      .eq("id", id);
+
+    if (error) {
+      console.error("Error updating priority:", error);
+    } else {
+      setTodos(todos.map((t) => (t.id === id ? { ...t, priority } : t)));
     }
   };
 
@@ -102,6 +116,7 @@ export function TodoList({ initialTodos, userId }: TodoListProps) {
                 todo={todo}
                 onToggle={handleToggleTodo}
                 onDelete={handleDeleteTodo}
+                onPriorityChange={handlePriorityChange}
               />
             ))
           )}
