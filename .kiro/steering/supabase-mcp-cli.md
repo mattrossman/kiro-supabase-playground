@@ -35,3 +35,7 @@ To compare the local `migrations/` files with those applied to the local running
 While iterating on the schema, you should generate updated types with `supabase gen types --local`. This outputs to stdio, so use `>` to redirect to a file.
 
 Prefer this over the `generate_types` MCP tool.
+
+# Troubleshooting
+
+- `Error calling MCP tool: fetch failed`: Check if Supabase stack is running with `supabase status` and `supabase start` as needed
