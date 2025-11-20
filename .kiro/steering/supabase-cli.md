@@ -20,3 +20,7 @@ Otherwise you can download and execute it on-the-fly with `npx`:
 ```bash
 npx supabase@latest <rest-of-command>
 ```
+
+# Troubleshooting
+
+- `supabase start` failing due to port conflict: Stop the offending instance with `supabase stop --project-id <id>` then retry
