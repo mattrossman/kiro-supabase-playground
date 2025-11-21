@@ -8,3 +8,5 @@
 - `steering/supabase-mcp-hosted.md` explains unique workflows for Supabase's hosted MCP server
 
 Here only `supabase-cli.md` and `supabase-mcp-cli.md` use "always" inclusion mode, as this project tests development with Supabase CLI and its included MCP server.
+
+See https://github.com/mattrossman/kiro-supabase-hosted-playground for a project that instead favors a hosted-first workflow.
