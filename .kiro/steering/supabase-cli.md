@@ -21,6 +21,10 @@ Otherwise you can download and execute it on-the-fly with `npx`:
 npx supabase@latest <rest-of-command>
 ```
 
+# Documentation
+
+Refer to https://supabase.com/docs/reference/cli for guidance on which commands to use for given request.
+
 # Troubleshooting
 
 - `supabase start` failing due to port conflict: Stop the offending instance with `supabase stop --project-id <id>` then retry

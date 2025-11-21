@@ -9,11 +9,11 @@ Docs for Supabase MCP are available at https://supabase.com/mcp
 
 # MCP setup (CLI)
 
-Supabase CLI runs an MCP server on `http://127.0.0.1:54321/mcp`. If the user has difficulty connecting, you can verify this URL with `supabase status` (without `--local` flag). Tools executing using this server affect only the local Supabase instance, but changes can be synced to a hosted instance using the CLI.
+Supabase CLI runs an MCP server on `http://127.0.0.1:54321/mcp`. If the user has difficulty connecting, you can verify this URL with `supabase status`. Tools executing using this server affect only the local Supabase instance, but changes can be synced to a hosted instance using the CLI.
 
 The local MCP server supports a subset of the functionality of our hosted MCP server, since some features like edge functions are managed through the file system in local development, or may otherwise be unsupported in CLI.
 
-Since you're working in a local editor, prefer development using this local Supabase instance. When running Supabase CLI commands, include the `--local` flag where possible to explictly target the local instance.
+Since you're working in a local editor, prefer development using this local Supabase instance. When running Supabase CLI commands, include the `--local` flag where possible to explictly target the local instance. Don't include `--local` for `supabase status`.
 
 # Schema managament
 
@@ -39,3 +39,5 @@ Prefer this over the `generate_types` MCP tool.
 # Troubleshooting
 
 - `Error calling MCP tool: fetch failed`: Check if Supabase stack is running with `supabase status` and `supabase start` as needed
+- PostgREST endpoint failures or RLS policy issues: Review "api" logs via MCP `get_logs`
+- Slow queries, errors, or connection issues: Review "postgres" logs via MCP `get_logs`
